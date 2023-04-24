@@ -8,6 +8,9 @@ from django.views import generic
 
 
 class IndexView(generic.ListView):
+    """
+        List all blogs and categories
+    """
     template_name = "blogs/index.html"
     context_object_name = "blogs"
 
@@ -22,11 +25,17 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """
+        get detail of one blog by id
+    """
     model = Blog
     template_name = "blogs/detail.html"
 
 
 class CategoryBlogsView(generic.ListView):
+    """
+        get all blogs of one category by id
+    """
     template_name = "blogs/category.html"
     context_object_name = "categories"
 
@@ -39,33 +48,16 @@ class CategoryBlogsView(generic.ListView):
             pk=self.kwargs['pk']).blog_set.all()
         return context
 
-# def list_blog(request):
-#     blogs = Blog.objects.all()
-#     cates = Category.objects.all()
 
-#     now = timezone.now()
-#     context = {
-#         "blogs": blogs,
-#         "cates": cates,
-#         "now": now
-#     }
-#     return render(request, 'blogs/index.html', context)
-
-
-# def detail(request, blog_id):
+# def like(request, blog_id):
+#     """
+#         like a post
+#     """
 #     blog = Blog.objects.get(pk=blog_id)
+#     like = request.POST['likes']
+#     like += 1
+#     like.save()
 #     context = {
 #         "blog": blog
 #     }
-#     return render(request, 'blogs/detail.html', context)
-
-
-def like(request, blog_id):
-    data = request.POST["like"]
-    blog = Blog.objects.get(pk=data)
-    blog.likes += 1
-    blog.save()
-    context = {
-        "blog": blog
-    }
-    return render(request, "blogs/detail.html", context)
+#     return render(request, "blogs/detail.html", context)

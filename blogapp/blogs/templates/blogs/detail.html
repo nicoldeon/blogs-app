@@ -15,17 +15,13 @@
             <span class="align-item-right fw-bold">
                 {{blog.likes}} likes
             </span>
-            <i class="fa-regular fa-heart"></i>
+            <i class="fa-regular fa-heart" id="like_post"></i>
         </div>
 
         {% else %}
         <div class="blog-likes">
             <span class="fw-bold">Be the first one to like the post</span>
-            <form action="{% url 'like' blog.id %}" method="post">
-                {% csrf_token %}
-                <i class="fa-regular fa-heart"> </i>
-                <input type="submit" value="like" name="likes"></input>
-            </form>
+
         </div>
         {% endif %}
     </div>

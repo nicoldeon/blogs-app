@@ -28,6 +28,10 @@ class CategoriesList(APIView):
 
 
 class DetailCategory(APIView):
+    """
+        get detail category by id, delete and update that category
+    """
+
     def get_object(self, pk):
         try:
             return Category.objects.get(pk=pk)
@@ -49,78 +53,18 @@ class DetailCategory(APIView):
 
     def delete(self, request, pk, format=None):
         cate = self.get_object(pk)
-        cate.delete()
-        return Response(status=204)
-
-# @api_view(['GET'])
-# def api_categories_view(request):
-#     if request.method == "GET":
-#         cates = Category.objects.all()
-#         serializer = CategorySerializer(cates, many=True)
-#         return Response(serializer.data)
-
-
-# @api_view(['POST'])
-# def api_create_category(request):
-#     cate = Category()
-#     if request.method == "POST":
-#         serializer = CategorySerializer(cate, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=201)
-#         return Response(serializer.errors, status=400)
-
-
-# @api_view(['GET'])
-# def api_detail_category(request, pk):
-#     try:
-#         cate = Category.objects.get(pk=pk)
-#     except Category.DoesNotExist:
-#         return Response(status=404)
-
-#     if request.method == "GET":
-#         serializer = CategorySerializer(cate)
-#         return Response(serializer.data)
-
-
-# @api_view(['DELETE'])
-# def api_delete_category(request, pk):
-#     try:
-#         cate = Category.objects.get(pk=pk)
-#     except Category.DoesNotExist:
-#         return Response(status=404)
-
-#     if request.method == "DELETE":
-#         operation = cate.delete()
-#         data = {}
-#         if operation:
-#             # if it valid you change the serializer
-#             data["success"] = "delete sucessful"
-#         else:
-#             data["failed"] = "delete failed"
-#         return Response(data=data)
-
-
-# @api_view(['PUT'])
-# def api_update_category(request, pk):
-#     try:
-#         cate = Category.objects.get(pk=pk)
-#     except Category.DoesNotExist:
-#         return Response(status=404)
-
-#     if request.method == "PUT":
-#         serializer = CategorySerializer(cate, data=request.data)
-#         data = {}
-#         if serializer.is_valid():
-#             # if it valid you change the serializer
-#             serializer.save()
-#             data["success"] = "update sucessful"
-#             return Response(data=data)
-#         return Response(serializer.errors, status=400)
+        data = {}
+        if cate.delete():
+            data['delete'] = "Delete successful"
+        return Response(data, status=204)
 
 
 # Blog
 class BlogList(APIView):
+    """
+        list all blogs, and create new blog
+    """
+
     def get(self, request, format=None):
         blogs = Blog.objects.all()
         serializer = BlogSerializer(blogs, many=True)
@@ -135,6 +79,10 @@ class BlogList(APIView):
 
 
 class DetailBlog(APIView):
+    """
+        get detail of one blog by id, delelete and update that blog
+    """
+
     def get_object(self, pk):
         try:
             return Blog.objects.get(pk=pk)
@@ -156,72 +104,7 @@ class DetailBlog(APIView):
 
     def delete(self, request, pk, format=None):
         blog = self.get_object(pk)
-        blog.delete()
-        return Response(status=200)
-
-# @api_view(['GET'])
-# def api_blog_view(request):
-#     if request.method == "GET":
-#         blogs = Blog.objects.all()
-#         serializer = BlogSerializer(blogs, many=True)
-#         return Response(serializer.data)
-
-
-# @api_view(['GET'])
-# def api_detail_blog(request, pk):
-#     try:
-#         blog = Blog.objects.get(pk=pk)
-#     except Blog.DoesNotExist:
-#         return Response(status=404)
-
-#     if request.method == "GET":
-#         serializer = BlogSerializer(blog)
-#         return Response(serializer.data)
-
-
-# @api_view(['PUT'])
-# def api_update_blog(request, pk):
-#     try:
-#         blog = Blog.objects.get(pk=pk)
-#     except Blog.DoesNotExist:
-#         return Response(status=404)
-
-#     if request.method == "PUT":
-#         serializer = BlogSerializer(blog, data=request.data)
-#         data = {}
-#         if serializer.is_valid():
-#             # if it valid you change the serializer
-#             serializer.save()
-#             data["success"] = "update sucessful"
-#             return Response(data=data)
-#         return Response(serializer.errors, status=400)
-
-
-# @api_view(['DELETE'])
-# def api_delete_blog(request, pk):
-#     try:
-#         blog = Blog.objects.get(pk=pk)
-#     except Blog.DoesNotExist:
-#         return Response(status=404)
-
-#     if request.method == "DELETE":
-#         operation = blog.delete()
-#         data = {}
-#         if operation:
-#             # if it valid you change the serializer
-#             data["success"] = "delete sucessful"
-#         else:
-#             data["failed"] = "delete failed"
-#         return Response(data=data)
-
-
-# # require author to be authenticated to be created a post
-# @api_view(['POST'])
-# def api_create_blog(request):
-#     blog = Blog()
-#     if request.method == "POST":
-#         serializer = BlogSerializer(blog, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=201)
-#         return Response(serializer.errors, status=400)
+        data = {}
+        if blog.delete():
+            data['delete'] = "Delete successful"
+        return Response(data, status=200)

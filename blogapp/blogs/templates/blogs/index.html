@@ -3,7 +3,7 @@
 {% block category %}
 {% if cates %}
 {% for cate in cates %}
-<a href="{% url 'category' cate.id %}" class="p-2 link-secondary">{{cate}}</a>
+<a href="{% url 'blogs:category' cate.id %}" class="p-2 link-secondary">{{cate}}</a>
 {% endfor %}
 {% else %}
 <h3>Don't have categories to display</h3>
@@ -39,7 +39,7 @@
             <!-- <p class="card-text mb-auto">
                 {{blog.content}}
             </p> -->
-            <a href="{% url 'detail' blog.id %}" class="stretched-link">Continue reading</a>
+            <a href="{% url 'blogs:detail' blog.id %}" class="stretched-link">Continue reading</a>
         </div>
     </div>
 </div>
