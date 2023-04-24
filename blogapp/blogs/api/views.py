@@ -148,3 +148,10 @@ class DetailUser(APIView):
             serializer.save()
             return Response(serializer.data, status=200)
         return Response(serializer.errors, status=400)
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        data = {}
+        user.delete()
+        data['delete'] = "Delete successful"
+        return Response(data, status=200)
