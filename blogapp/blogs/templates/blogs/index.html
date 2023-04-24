@@ -32,7 +32,12 @@
         <div style="padding:20px"
             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <strong class="d-inline-block mb-2 text-primary">
-                {{blog.category}}
+                {{blog.category}} -
+                {% if blog.author.fullname %}
+                {{blog.author.fullname}} posted
+                {% else %}
+                {{blog.author.username}}
+                {% endif %}
             </strong>
             <h3 class="mb-0">{{blog.title}}</h3>
             <div class="mb-1 text-muted">{{blog.pub_date}}</div>

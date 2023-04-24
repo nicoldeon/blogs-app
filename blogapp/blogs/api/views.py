@@ -4,8 +4,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-from blogs.models import Blog, Category
-from blogs.api.serializers import BlogSerializer, CategorySerializer
+from blogs.models import Blog, Category, User
+from blogs.api.serializers import BlogSerializer, CategorySerializer, UserSerializer
 
 
 # Category
@@ -108,3 +108,43 @@ class DetailBlog(APIView):
         if blog.delete():
             data['delete'] = "Delete successful"
         return Response(data, status=200)
+
+
+# User
+class UserList(APIView):
+    """
+        get list users and create new user
+    """
+
+    def get(self, request, format=None):
+        user = User.objects.all()
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(status=404)
+
+
+class DetailUser(APIView):
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response(status=404)
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=200)
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)

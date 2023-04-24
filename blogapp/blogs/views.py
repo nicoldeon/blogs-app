@@ -16,7 +16,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """ Return the list blogs """
-        return Blog.objects.all()
+        return Blog.objects.all().order_by('-pub_date')
 
     def get_context_data(self):
         context = super().get_context_data()
