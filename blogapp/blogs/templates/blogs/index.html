@@ -1,0 +1,52 @@
+{% extends 'blogs/base.html' %}
+
+{% block category %}
+{% if cates %}
+{% for cate in cates %}
+<a href="{% url 'category' cate.id %}" class="p-2 link-secondary">{{cate}}</a>
+{% endfor %}
+{% else %}
+<h3>Don't have categories to display</h3>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- <div class="p-4 p-md4 mb-5 mb-4 text-white bg-dark rounded">
+    <div class="col-md-6 px-0">
+        <h1 class="display-4 fst-italic">Coll featured blog post</h1>
+        <p class="lead my-3">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque cupiditate error voluptatibus modi
+            quasi, ea, soluta, tempora unde officiis veritatis fuga repellendus at voluptas temporibus quisquam
+            natus ex sequi eveniet.
+        </p>
+        <div class="lead mb-0">
+            <a href="#" class="text-white fw-bold">Continue reading...</a>
+        </div>
+    </div>
+</div> -->
+{% if blogs %}
+
+{% for blog in blogs %}
+<div class="row">
+    <div class="col-md-12">
+        <div style="padding:20px"
+            class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <strong class="d-inline-block mb-2 text-primary">
+                {{blog.category}}
+            </strong>
+            <h3 class="mb-0">{{blog.title}}</h3>
+            <div class="mb-1 text-muted">{{blog.pub_date}}</div>
+            <!-- <p class="card-text mb-auto">
+                {{blog.content}}
+            </p> -->
+            <a href="{% url 'detail' blog.id %}" class="stretched-link">Continue reading</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<h1>
+    Blogs haven't created yet
+</h1>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'blogs/base.html' %}
+
+{% block category %}
+{% if categories %}
+{% for cate in categories %}
+<a href="{% url 'category' cate.id %}" class="p-2 link-secondary">{{cate}}</a>
+{% endfor %}
+{% else %}
+<h3>Don't have categories to display</h3>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if blogs %}
+
+{% for blog in blogs %}
+<div class="row">
+    <div class="col-md-12">
+        <div style="padding:20px"
+            class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <strong class="d-inline-block mb-2 text-primary">
+                {{blog.category}}
+            </strong>
+            <h3 class="mb-0">{{blog.title}}</h3>
+            <div class="mb-1 text-muted">{{blog.pub_date}}</div>
+            <!-- <p class="card-text mb-auto">
+                {{blog.content}}
+            </p> -->
+            <a href="{% url 'detail' blog.id %}" class="stretched-link">Continue reading</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<h1>
+    This categories haven't had blogs yet
+</h1>
+{% endif %}
+{% endblock %}

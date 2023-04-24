@@ -1,0 +1,33 @@
+{% extends 'blogs/base.html' %}
+
+{% block detail %}
+<div class="row">
+    <div class="col">
+        <div class="img-post">
+            <img src="{{blog.img.url}}" alt="">
+        </div>
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">
+            {{blog.title}}
+        </h3>
+        <p>{{blog.content}}</p>
+        {% if blog.likes != 0 %}
+        <div class="blog-likes">
+            <span class="align-item-right fw-bold">
+                {{blog.likes}} likes
+            </span>
+            <i class="fa-regular fa-heart"></i>
+        </div>
+
+        {% else %}
+        <div class="blog-likes">
+            <span class="fw-bold">Be the first one to like the post</span>
+            <form action="{% url 'like' blog.id %}" method="post">
+                {% csrf_token %}
+                <i class="fa-regular fa-heart"> </i>
+                <input type="submit" value="like" name="likes"></input>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
